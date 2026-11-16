@@ -1,0 +1,702 @@
+[
+  {
+    "id": 1,
+    "db_id": "concert_singer",
+    "question": "How many singers do we have?",
+    "gold_sql": "SELECT count(*) FROM singer",
+    "difficulty": "easy"
+  },
+  {
+    "id": 2,
+    "db_id": "concert_singer",
+    "question": "What are all the names and countries of singers?",
+    "gold_sql": "SELECT Name, Country FROM singer",
+    "difficulty": "easy"
+  },
+  {
+    "id": 3,
+    "db_id": "concert_singer",
+    "question": "What is the average age of all singers?",
+    "gold_sql": "SELECT avg(Age) FROM singer",
+    "difficulty": "easy"
+  },
+  {
+    "id": 4,
+    "db_id": "concert_singer",
+    "question": "What are the names of all stadiums?",
+    "gold_sql": "SELECT Name FROM stadium",
+    "difficulty": "easy"
+  },
+  {
+    "id": 5,
+    "db_id": "concert_singer",
+    "question": "How many stadiums are there?",
+    "gold_sql": "SELECT count(*) FROM stadium",
+    "difficulty": "easy"
+  },
+  {
+    "id": 6,
+    "db_id": "concert_singer",
+    "question": "What is the maximum capacity among all stadiums?",
+    "gold_sql": "SELECT max(Capacity) FROM stadium",
+    "difficulty": "easy"
+  },
+  {
+    "id": 7,
+    "db_id": "concert_singer",
+    "question": "What is the average and maximum capacity of all stadiums?",
+    "gold_sql": "SELECT avg(Capacity), max(Capacity) FROM stadium",
+    "difficulty": "easy"
+  },
+  {
+    "id": 8,
+    "db_id": "concert_singer",
+    "question": "List all singer names in descending order of age.",
+    "gold_sql": "SELECT Name FROM singer ORDER BY Age DESC",
+    "difficulty": "medium"
+  },
+  {
+    "id": 9,
+    "db_id": "concert_singer",
+    "question": "What is the name and age of the youngest singer?",
+    "gold_sql": "SELECT Name, Age FROM singer ORDER BY Age ASC LIMIT 1",
+    "difficulty": "medium"
+  },
+  {
+    "id": 10,
+    "db_id": "concert_singer",
+    "question": "Show the name and the release year of the song by the youngest singer.",
+    "gold_sql": "SELECT Song_Name, Song_release_year FROM singer ORDER BY Age ASC LIMIT 1",
+    "difficulty": "medium"
+  },
+  {
+    "id": 11,
+    "db_id": "concert_singer",
+    "question": "What is the name and capacity of the stadium with the highest capacity?",
+    "gold_sql": "SELECT Name, Capacity FROM stadium ORDER BY Capacity DESC LIMIT 1",
+    "difficulty": "medium"
+  },
+  {
+    "id": 12,
+    "db_id": "concert_singer",
+    "question": "Show the stadium name and the number of concerts held in each stadium.",
+    "gold_sql": "SELECT T1.Name, count(*) FROM stadium AS T1 JOIN concert AS T2 ON T1.Stadium_ID = T2.Stadium_ID GROUP BY T1.Name",
+    "difficulty": "medium"
+  },
+  {
+    "id": 13,
+    "db_id": "concert_singer",
+    "question": "List the names of singers who have been in more than one concert.",
+    "gold_sql": "SELECT T1.Name FROM singer AS T1 JOIN singer_in_concert AS T2 ON T1.Singer_ID = T2.Singer_ID GROUP BY T1.Name HAVING count(*) > 1",
+    "difficulty": "medium"
+  },
+  {
+    "id": 14,
+    "db_id": "concert_singer",
+    "question": "Find the names of concerts and their corresponding stadium names.",
+    "gold_sql": "SELECT T1.concert_Name, T2.Name FROM concert AS T1 JOIN stadium AS T2 ON T1.Stadium_ID = T2.Stadium_ID",
+    "difficulty": "medium"
+  },
+  {
+    "id": 15,
+    "db_id": "concert_singer",
+    "question": "Find the name and age of singers whose age is greater than the average age of all singers.",
+    "gold_sql": "SELECT Name, Age FROM singer WHERE Age > (SELECT avg(Age) FROM singer)",
+    "difficulty": "hard"
+  },
+  {
+    "id": 16,
+    "db_id": "concert_singer",
+    "question": "Find the names of stadiums that have never held a concert.",
+    "gold_sql": "SELECT Name FROM stadium WHERE Stadium_ID NOT IN (SELECT Stadium_ID FROM concert)",
+    "difficulty": "hard"
+  },
+  {
+    "id": 17,
+    "db_id": "concert_singer",
+    "question": "Find singer names who did not participate in any concert.",
+    "gold_sql": "SELECT Name FROM singer WHERE Singer_ID NOT IN (SELECT Singer_ID FROM singer_in_concert)",
+    "difficulty": "hard"
+  },
+  {
+    "id": 18,
+    "db_id": "concert_singer",
+    "question": "List the name and capacity of stadiums that have hosted more than one concert.",
+    "gold_sql": "SELECT T1.Name, T1.Capacity FROM stadium AS T1 JOIN concert AS T2 ON T1.Stadium_ID = T2.Stadium_ID GROUP BY T1.Name HAVING count(*) > 1",
+    "difficulty": "hard"
+  },
+  {
+    "id": 19,
+    "db_id": "concert_singer",
+    "question": "Find the names of singers who have appeared in both a 2014 and a 2015 concert.",
+    "gold_sql": "SELECT T1.Name FROM singer AS T1 JOIN singer_in_concert AS T2 ON T1.Singer_ID = T2.Singer_ID JOIN concert AS T3 ON T2.concert_ID = T3.concert_ID WHERE T3.Year = '2014' INTERSECT SELECT T1.Name FROM singer AS T1 JOIN singer_in_concert AS T2 ON T1.Singer_ID = T2.Singer_ID JOIN concert AS T3 ON T2.concert_ID = T3.concert_ID WHERE T3.Year = '2015'",
+    "difficulty": "extra-hard"
+  },
+  {
+    "id": 20,
+    "db_id": "concert_singer",
+    "question": "Find the country with the most singers.",
+    "gold_sql": "SELECT Country FROM singer GROUP BY Country ORDER BY count(*) DESC LIMIT 1",
+    "difficulty": "extra-hard"
+  },
+  {
+    "id": 21,
+    "db_id": "car_1",
+    "question": "How many car makers are there?",
+    "gold_sql": "SELECT count(*) FROM car_makers",
+    "difficulty": "easy"
+  },
+  {
+    "id": 22,
+    "db_id": "car_1",
+    "question": "List all countries and their continents.",
+    "gold_sql": "SELECT T1.CountryName, T2.Continent FROM countries AS T1 JOIN continents AS T2 ON T1.Continent = T2.ContId",
+    "difficulty": "easy"
+  },
+  {
+    "id": 23,
+    "db_id": "car_1",
+    "question": "What are the full names of all car makers?",
+    "gold_sql": "SELECT FullName FROM car_makers",
+    "difficulty": "easy"
+  },
+  {
+    "id": 24,
+    "db_id": "car_1",
+    "question": "How many cars were made in 1970?",
+    "gold_sql": "SELECT count(*) FROM cars_data WHERE Year = 1970",
+    "difficulty": "easy"
+  },
+  {
+    "id": 25,
+    "db_id": "car_1",
+    "question": "What is the average MPG of all cars?",
+    "gold_sql": "SELECT avg(MPG) FROM cars_data",
+    "difficulty": "easy"
+  },
+  {
+    "id": 26,
+    "db_id": "car_1",
+    "question": "What is the maximum and minimum horsepower of all cars?",
+    "gold_sql": "SELECT max(Horsepower), min(Horsepower) FROM cars_data",
+    "difficulty": "easy"
+  },
+  {
+    "id": 27,
+    "db_id": "car_1",
+    "question": "What are the car makes and their models?",
+    "gold_sql": "SELECT T1.Make, T2.Model FROM car_names AS T1 JOIN model_list AS T2 ON T1.Model = T2.ModelId",
+    "difficulty": "easy"
+  },
+  {
+    "id": 28,
+    "db_id": "car_1",
+    "question": "What is the number of car models made by each car maker?",
+    "gold_sql": "SELECT T1.FullName, count(T2.ModelId) FROM car_makers AS T1 JOIN model_list AS T2 ON T1.Id = T2.Maker GROUP BY T1.FullName",
+    "difficulty": "medium"
+  },
+  {
+    "id": 29,
+    "db_id": "car_1",
+    "question": "List the car make and year for all cars with more than 6 cylinders.",
+    "gold_sql": "SELECT T1.Make, T2.Year FROM car_names AS T1 JOIN cars_data AS T2 ON T1.MakeId = T2.Id WHERE T2.Cylinders > 6",
+    "difficulty": "medium"
+  },
+  {
+    "id": 30,
+    "db_id": "car_1",
+    "question": "Find the car with the highest MPG and return its make.",
+    "gold_sql": "SELECT T1.Make FROM car_names AS T1 JOIN cars_data AS T2 ON T1.MakeId = T2.Id ORDER BY T2.MPG DESC LIMIT 1",
+    "difficulty": "medium"
+  },
+  {
+    "id": 31,
+    "db_id": "car_1",
+    "question": "How many car makers are there in each continent?",
+    "gold_sql": "SELECT T3.Continent, count(*) FROM car_makers AS T1 JOIN countries AS T2 ON T1.Country = T2.CountryId JOIN continents AS T3 ON T2.Continent = T3.ContId GROUP BY T3.Continent",
+    "difficulty": "medium"
+  },
+  {
+    "id": 32,
+    "db_id": "car_1",
+    "question": "What is the average weight of cars made in 1970?",
+    "gold_sql": "SELECT avg(Weight) FROM cars_data WHERE Year = 1970",
+    "difficulty": "medium"
+  },
+  {
+    "id": 33,
+    "db_id": "car_1",
+    "question": "What is the average horsepower of cars made in 1970?",
+    "gold_sql": "SELECT avg(Horsepower) FROM cars_data WHERE Year = 1970",
+    "difficulty": "medium"
+  },
+  {
+    "id": 34,
+    "db_id": "car_1",
+    "question": "What is the average MPG of cars made in the USA?",
+    "gold_sql": "SELECT avg(T1.MPG) FROM cars_data AS T1 JOIN car_names AS T2 ON T1.Id = T2.MakeId JOIN model_list AS T3 ON T2.Model = T3.ModelId JOIN car_makers AS T4 ON T3.Maker = T4.Id JOIN countries AS T5 ON T4.Country = T5.CountryId WHERE T5.CountryName = 'USA'",
+    "difficulty": "medium"
+  },
+  {
+    "id": 35,
+    "db_id": "car_1",
+    "question": "Which countries have more than 1 car maker?",
+    "gold_sql": "SELECT T2.CountryName FROM car_makers AS T1 JOIN countries AS T2 ON T1.Country = T2.CountryId GROUP BY T2.CountryName HAVING count(*) > 1",
+    "difficulty": "hard"
+  },
+  {
+    "id": 36,
+    "db_id": "car_1",
+    "question": "What are the makers and models of cars with an MPG greater than the average MPG?",
+    "gold_sql": "SELECT T2.FullName, T3.Model FROM cars_data AS T1 JOIN car_names AS T4 ON T1.Id = T4.MakeId JOIN model_list AS T3 ON T4.Model = T3.ModelId JOIN car_makers AS T2 ON T3.Maker = T2.Id WHERE T1.MPG > (SELECT avg(MPG) FROM cars_data)",
+    "difficulty": "hard"
+  },
+  {
+    "id": 37,
+    "db_id": "car_1",
+    "question": "Find the average horsepower of cars grouped by number of cylinders, only for cylinder counts with average horsepower above 100.",
+    "gold_sql": "SELECT Cylinders, avg(Horsepower) FROM cars_data GROUP BY Cylinders HAVING avg(Horsepower) > 100",
+    "difficulty": "hard"
+  },
+  {
+    "id": 38,
+    "db_id": "car_1",
+    "question": "Find car makers that do not have any cars in cars_data.",
+    "gold_sql": "SELECT FullName FROM car_makers WHERE Id NOT IN (SELECT T1.Maker FROM model_list AS T1 JOIN car_names AS T2 ON T1.ModelId = T2.Model JOIN cars_data AS T3 ON T2.MakeId = T3.Id)",
+    "difficulty": "hard"
+  },
+  {
+    "id": 39,
+    "db_id": "car_1",
+    "question": "Find the country that has the maker with the most models.",
+    "gold_sql": "SELECT T2.CountryName FROM car_makers AS T1 JOIN countries AS T2 ON T1.Country = T2.CountryId JOIN model_list AS T3 ON T1.Id = T3.Maker GROUP BY T2.CountryName ORDER BY count(*) DESC LIMIT 1",
+    "difficulty": "extra-hard"
+  },
+  {
+    "id": 40,
+    "db_id": "car_1",
+    "question": "Find car makers that have models with 4 cylinders and also models with 8 cylinders.",
+    "gold_sql": "SELECT T3.FullName FROM cars_data AS T1 JOIN model_list AS T2 ON T1.Id = T2.ModelId JOIN car_makers AS T3 ON T2.Maker = T3.Id WHERE T1.Cylinders = 4 INTERSECT SELECT T3.FullName FROM cars_data AS T1 JOIN model_list AS T2 ON T1.Id = T2.ModelId JOIN car_makers AS T3 ON T2.Maker = T3.Id WHERE T1.Cylinders = 8",
+    "difficulty": "extra-hard"
+  },
+  {
+    "id": 41,
+    "db_id": "world_1",
+    "question": "How many countries are in Europe?",
+    "gold_sql": "SELECT count(*) FROM country WHERE Continent = 'Europe'",
+    "difficulty": "easy"
+  },
+  {
+    "id": 42,
+    "db_id": "world_1",
+    "question": "What are the names of all countries in Asia?",
+    "gold_sql": "SELECT Name FROM country WHERE Continent = 'Asia'",
+    "difficulty": "easy"
+  },
+  {
+    "id": 43,
+    "db_id": "world_1",
+    "question": "What is the total population of all countries?",
+    "gold_sql": "SELECT sum(Population) FROM country",
+    "difficulty": "easy"
+  },
+  {
+    "id": 44,
+    "db_id": "world_1",
+    "question": "What is the average life expectancy in Europe?",
+    "gold_sql": "SELECT avg(LifeExpectancy) FROM country WHERE Continent = 'Europe'",
+    "difficulty": "easy"
+  },
+  {
+    "id": 45,
+    "db_id": "world_1",
+    "question": "List all cities and their population.",
+    "gold_sql": "SELECT Name, Population FROM city",
+    "difficulty": "easy"
+  },
+  {
+    "id": 46,
+    "db_id": "world_1",
+    "question": "What is the name and population of the most populous city?",
+    "gold_sql": "SELECT Name, Population FROM city ORDER BY Population DESC LIMIT 1",
+    "difficulty": "easy"
+  },
+  {
+    "id": 47,
+    "db_id": "world_1",
+    "question": "What are the names and populations of countries with a population greater than 100 million?",
+    "gold_sql": "SELECT Name, Population FROM country WHERE Population > 100000000",
+    "difficulty": "medium"
+  },
+  {
+    "id": 48,
+    "db_id": "world_1",
+    "question": "List the official languages and the countries that speak them.",
+    "gold_sql": "SELECT T1.Name, T2.Language FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code = T2.CountryCode WHERE T2.IsOfficial = 'T'",
+    "difficulty": "medium"
+  },
+  {
+    "id": 49,
+    "db_id": "world_1",
+    "question": "Find the names of countries and their capital city names.",
+    "gold_sql": "SELECT T1.Name, T2.Name FROM country AS T1 JOIN city AS T2 ON T1.Capital = T2.ID",
+    "difficulty": "medium"
+  },
+  {
+    "id": 50,
+    "db_id": "world_1",
+    "question": "What is the number of languages spoken in each country?",
+    "gold_sql": "SELECT CountryCode, count(*) FROM countrylanguage GROUP BY CountryCode",
+    "difficulty": "medium"
+  },
+  {
+    "id": 51,
+    "db_id": "world_1",
+    "question": "What continent has the highest total GNP?",
+    "gold_sql": "SELECT Continent FROM country GROUP BY Continent ORDER BY sum(GNP) DESC LIMIT 1",
+    "difficulty": "medium"
+  },
+  {
+    "id": 52,
+    "db_id": "world_1",
+    "question": "List all cities in Europe with a population greater than 1 million.",
+    "gold_sql": "SELECT T2.Name FROM country AS T1 JOIN city AS T2 ON T1.Code = T2.CountryCode WHERE T1.Continent = 'Europe' AND T2.Population > 1000000",
+    "difficulty": "medium"
+  },
+  {
+    "id": 53,
+    "db_id": "world_1",
+    "question": "What is the average life expectancy for countries grouped by continent?",
+    "gold_sql": "SELECT Continent, avg(LifeExpectancy) FROM country GROUP BY Continent",
+    "difficulty": "medium"
+  },
+  {
+    "id": 54,
+    "db_id": "world_1",
+    "question": "Find countries with life expectancy above average.",
+    "gold_sql": "SELECT Name FROM country WHERE LifeExpectancy > (SELECT avg(LifeExpectancy) FROM country)",
+    "difficulty": "medium"
+  },
+  {
+    "id": 55,
+    "db_id": "world_1",
+    "question": "List the top 3 most populous countries by continent.",
+    "gold_sql": "SELECT Name, Continent, Population FROM country ORDER BY Population DESC LIMIT 3",
+    "difficulty": "hard"
+  },
+  {
+    "id": 56,
+    "db_id": "world_1",
+    "question": "Find countries that have no official language recorded.",
+    "gold_sql": "SELECT Name FROM country WHERE Code NOT IN (SELECT CountryCode FROM countrylanguage WHERE IsOfficial = 'T')",
+    "difficulty": "hard"
+  },
+  {
+    "id": 57,
+    "db_id": "world_1",
+    "question": "List country names where the capital city's population is more than 1 million.",
+    "gold_sql": "SELECT T1.Name FROM country AS T1 JOIN city AS T2 ON T1.Capital = T2.ID WHERE T2.Population > 1000000",
+    "difficulty": "hard"
+  },
+  {
+    "id": 58,
+    "db_id": "world_1",
+    "question": "Find the total number of cities in countries with a population above 50 million.",
+    "gold_sql": "SELECT count(*) FROM city AS T1 JOIN country AS T2 ON T1.CountryCode = T2.Code WHERE T2.Population > 50000000",
+    "difficulty": "hard"
+  },
+  {
+    "id": 59,
+    "db_id": "world_1",
+    "question": "Find countries where English is an official language but French is not.",
+    "gold_sql": "SELECT CountryCode FROM countrylanguage WHERE Language = 'English' AND IsOfficial = 'T' EXCEPT SELECT CountryCode FROM countrylanguage WHERE Language = 'French'",
+    "difficulty": "extra-hard"
+  },
+  {
+    "id": 60,
+    "db_id": "world_1",
+    "question": "List the top 3 countries with the highest number of cities.",
+    "gold_sql": "SELECT T1.Name, count(T2.ID) AS city_count FROM country AS T1 JOIN city AS T2 ON T1.Code = T2.CountryCode GROUP BY T1.Name ORDER BY city_count DESC LIMIT 3",
+    "difficulty": "extra-hard"
+  },
+  {
+    "id": 61,
+    "db_id": "employee_hire_evaluation",
+    "question": "How many employees are there?",
+    "gold_sql": "SELECT count(*) FROM employee",
+    "difficulty": "easy"
+  },
+  {
+    "id": 62,
+    "db_id": "employee_hire_evaluation",
+    "question": "List all employee names and their ages.",
+    "gold_sql": "SELECT Name, Age FROM employee",
+    "difficulty": "easy"
+  },
+  {
+    "id": 63,
+    "db_id": "employee_hire_evaluation",
+    "question": "What is the name and location of each shop?",
+    "gold_sql": "SELECT Name, Location FROM shop",
+    "difficulty": "easy"
+  },
+  {
+    "id": 64,
+    "db_id": "employee_hire_evaluation",
+    "question": "What is the average age of all employees?",
+    "gold_sql": "SELECT avg(Age) FROM employee",
+    "difficulty": "easy"
+  },
+  {
+    "id": 65,
+    "db_id": "employee_hire_evaluation",
+    "question": "What is the total bonus given to employee with ID 1?",
+    "gold_sql": "SELECT sum(Bonus) FROM evaluation WHERE Employee_ID = '1'",
+    "difficulty": "easy"
+  },
+  {
+    "id": 66,
+    "db_id": "employee_hire_evaluation",
+    "question": "List shops with more than 400 products.",
+    "gold_sql": "SELECT Name FROM shop WHERE Number_products > 400",
+    "difficulty": "easy"
+  },
+  {
+    "id": 67,
+    "db_id": "employee_hire_evaluation",
+    "question": "What is the name of the manager of the shop in New York?",
+    "gold_sql": "SELECT Manager_name FROM shop WHERE Location = 'New York'",
+    "difficulty": "easy"
+  },
+  {
+    "id": 68,
+    "db_id": "employee_hire_evaluation",
+    "question": "List the names of full-time employees.",
+    "gold_sql": "SELECT T1.Name FROM employee AS T1 JOIN hiring AS T2 ON T1.Employee_ID = T2.Employee_ID WHERE T2.Is_full_time = 1",
+    "difficulty": "medium"
+  },
+  {
+    "id": 69,
+    "db_id": "employee_hire_evaluation",
+    "question": "What shops and how many employees does each one have?",
+    "gold_sql": "SELECT T1.Name, count(T2.Employee_ID) FROM shop AS T1 JOIN hiring AS T2 ON T1.Shop_ID = T2.Shop_ID GROUP BY T1.Name",
+    "difficulty": "medium"
+  },
+  {
+    "id": 70,
+    "db_id": "employee_hire_evaluation",
+    "question": "Find the total bonus received by each employee.",
+    "gold_sql": "SELECT Employee_ID, sum(Bonus) FROM evaluation GROUP BY Employee_ID",
+    "difficulty": "medium"
+  },
+  {
+    "id": 71,
+    "db_id": "employee_hire_evaluation",
+    "question": "List the names and cities of employees who work in a shop in New York.",
+    "gold_sql": "SELECT T1.Name, T1.City FROM employee AS T1 JOIN hiring AS T2 ON T1.Employee_ID = T2.Employee_ID JOIN shop AS T3 ON T2.Shop_ID = T3.Shop_ID WHERE T3.Location = 'New York'",
+    "difficulty": "medium"
+  },
+  {
+    "id": 72,
+    "db_id": "employee_hire_evaluation",
+    "question": "What is the average bonus per year for all evaluations?",
+    "gold_sql": "SELECT Year_awarded, avg(Bonus) FROM evaluation GROUP BY Year_awarded",
+    "difficulty": "medium"
+  },
+  {
+    "id": 73,
+    "db_id": "employee_hire_evaluation",
+    "question": "Find the name and age of the oldest employee.",
+    "gold_sql": "SELECT Name, Age FROM employee ORDER BY Age DESC LIMIT 1",
+    "difficulty": "medium"
+  },
+  {
+    "id": 74,
+    "db_id": "employee_hire_evaluation",
+    "question": "Find the average bonus awarded in 2021.",
+    "gold_sql": "SELECT avg(Bonus) FROM evaluation WHERE Year_awarded = '2021'",
+    "difficulty": "medium"
+  },
+  {
+    "id": 75,
+    "db_id": "employee_hire_evaluation",
+    "question": "Find employee names who have received a bonus above average.",
+    "gold_sql": "SELECT DISTINCT T1.Name FROM employee AS T1 JOIN evaluation AS T2 ON T1.Employee_ID = CAST(T2.Employee_ID AS INTEGER) WHERE T2.Bonus > (SELECT avg(Bonus) FROM evaluation)",
+    "difficulty": "hard"
+  },
+  {
+    "id": 76,
+    "db_id": "employee_hire_evaluation",
+    "question": "Which employees have never been evaluated?",
+    "gold_sql": "SELECT Name FROM employee WHERE Employee_ID NOT IN (SELECT CAST(Employee_ID AS INTEGER) FROM evaluation)",
+    "difficulty": "hard"
+  },
+  {
+    "id": 77,
+    "db_id": "employee_hire_evaluation",
+    "question": "What is the total bonus for employees hired before 2021?",
+    "gold_sql": "SELECT sum(T2.Bonus) FROM hiring AS T1 JOIN evaluation AS T2 ON T1.Employee_ID = CAST(T2.Employee_ID AS INTEGER) WHERE T1.Start_from < '2021-01-01'",
+    "difficulty": "hard"
+  },
+  {
+    "id": 78,
+    "db_id": "employee_hire_evaluation",
+    "question": "Find the shop with the most employees.",
+    "gold_sql": "SELECT T1.Name FROM shop AS T1 JOIN hiring AS T2 ON T1.Shop_ID = T2.Shop_ID GROUP BY T1.Name ORDER BY count(*) DESC LIMIT 1",
+    "difficulty": "hard"
+  },
+  {
+    "id": 79,
+    "db_id": "employee_hire_evaluation",
+    "question": "List shops that have both full-time and part-time employees.",
+    "gold_sql": "SELECT T1.Name FROM shop AS T1 JOIN hiring AS T2 ON T1.Shop_ID = T2.Shop_ID WHERE T2.Is_full_time = 1 INTERSECT SELECT T1.Name FROM shop AS T1 JOIN hiring AS T2 ON T1.Shop_ID = T2.Shop_ID WHERE T2.Is_full_time = 0",
+    "difficulty": "extra-hard"
+  },
+  {
+    "id": 80,
+    "db_id": "employee_hire_evaluation",
+    "question": "Find the names of employees who received a bonus in 2021 but not in 2022.",
+    "gold_sql": "SELECT T1.Name FROM employee AS T1 JOIN evaluation AS T2 ON T1.Employee_ID = CAST(T2.Employee_ID AS INTEGER) WHERE T2.Year_awarded = '2021' EXCEPT SELECT T1.Name FROM employee AS T1 JOIN evaluation AS T2 ON T1.Employee_ID = CAST(T2.Employee_ID AS INTEGER) WHERE T2.Year_awarded = '2022'",
+    "difficulty": "extra-hard"
+  },
+  {
+    "id": 81,
+    "db_id": "student_transcripts_tracking",
+    "question": "How many students are there?",
+    "gold_sql": "SELECT count(*) FROM Students",
+    "difficulty": "easy"
+  },
+  {
+    "id": 82,
+    "db_id": "student_transcripts_tracking",
+    "question": "List all first and last names of students.",
+    "gold_sql": "SELECT first_name, last_name FROM Students",
+    "difficulty": "easy"
+  },
+  {
+    "id": 83,
+    "db_id": "student_transcripts_tracking",
+    "question": "How many courses are available?",
+    "gold_sql": "SELECT count(*) FROM Courses",
+    "difficulty": "easy"
+  },
+  {
+    "id": 84,
+    "db_id": "student_transcripts_tracking",
+    "question": "List all course names and descriptions.",
+    "gold_sql": "SELECT course_name, course_description FROM Courses",
+    "difficulty": "easy"
+  },
+  {
+    "id": 85,
+    "db_id": "student_transcripts_tracking",
+    "question": "What are the email addresses of all students?",
+    "gold_sql": "SELECT email_address FROM Students",
+    "difficulty": "easy"
+  },
+  {
+    "id": 86,
+    "db_id": "student_transcripts_tracking",
+    "question": "How many transcripts have been issued?",
+    "gold_sql": "SELECT count(*) FROM Transcripts",
+    "difficulty": "easy"
+  },
+  {
+    "id": 87,
+    "db_id": "student_transcripts_tracking",
+    "question": "What cities do students currently live in?",
+    "gold_sql": "SELECT DISTINCT T2.city FROM Students AS T1 JOIN Addresses AS T2 ON T1.current_address_id = T2.address_id",
+    "difficulty": "easy"
+  },
+  {
+    "id": 88,
+    "db_id": "student_transcripts_tracking",
+    "question": "How many students are enrolled in each degree program?",
+    "gold_sql": "SELECT degree_program_id, count(*) FROM Student_Enrolment GROUP BY degree_program_id",
+    "difficulty": "medium"
+  },
+  {
+    "id": 89,
+    "db_id": "student_transcripts_tracking",
+    "question": "What is the number of student enrolments per semester?",
+    "gold_sql": "SELECT semester_id, count(*) FROM Student_Enrolment GROUP BY semester_id",
+    "difficulty": "medium"
+  },
+  {
+    "id": 90,
+    "db_id": "student_transcripts_tracking",
+    "question": "List the first names and email addresses of students who have left.",
+    "gold_sql": "SELECT first_name, email_address FROM Students WHERE date_left IS NOT NULL",
+    "difficulty": "medium"
+  },
+  {
+    "id": 91,
+    "db_id": "student_transcripts_tracking",
+    "question": "Find students who registered after 2019.",
+    "gold_sql": "SELECT first_name, last_name FROM Students WHERE date_first_registered > '2019-12-31'",
+    "difficulty": "medium"
+  },
+  {
+    "id": 92,
+    "db_id": "student_transcripts_tracking",
+    "question": "List students and their current city.",
+    "gold_sql": "SELECT T1.first_name, T1.last_name, T2.city FROM Students AS T1 JOIN Addresses AS T2 ON T1.current_address_id = T2.address_id",
+    "difficulty": "medium"
+  },
+  {
+    "id": 93,
+    "db_id": "student_transcripts_tracking",
+    "question": "How many transcript contents are there for each transcript?",
+    "gold_sql": "SELECT transcript_id, count(*) FROM Transcript_Contents GROUP BY transcript_id",
+    "difficulty": "medium"
+  },
+  {
+    "id": 94,
+    "db_id": "student_transcripts_tracking",
+    "question": "Find the number of enrolments for each student.",
+    "gold_sql": "SELECT student_id, count(*) FROM Student_Enrolment GROUP BY student_id",
+    "difficulty": "medium"
+  },
+  {
+    "id": 95,
+    "db_id": "student_transcripts_tracking",
+    "question": "Find the first and last names of students who have a transcript.",
+    "gold_sql": "SELECT DISTINCT T1.first_name, T1.last_name FROM Students AS T1 JOIN Student_Enrolment AS T2 ON T1.student_id = T2.student_id JOIN Transcript_Contents AS T3 ON T2.student_enrolment_id = T3.student_enrolment_id",
+    "difficulty": "hard"
+  },
+  {
+    "id": 96,
+    "db_id": "student_transcripts_tracking",
+    "question": "What is the number of students who do not have any enrolment?",
+    "gold_sql": "SELECT count(*) FROM Students WHERE student_id NOT IN (SELECT student_id FROM Student_Enrolment)",
+    "difficulty": "hard"
+  },
+  {
+    "id": 97,
+    "db_id": "student_transcripts_tracking",
+    "question": "Find the state or province of addresses used by enrolled students.",
+    "gold_sql": "SELECT DISTINCT T3.state_province_county FROM Student_Enrolment AS T1 JOIN Students AS T2 ON T1.student_id = T2.student_id JOIN Addresses AS T3 ON T2.current_address_id = T3.address_id",
+    "difficulty": "hard"
+  },
+  {
+    "id": 98,
+    "db_id": "student_transcripts_tracking",
+    "question": "List the number of students per city.",
+    "gold_sql": "SELECT T2.city, count(*) FROM Students AS T1 JOIN Addresses AS T2 ON T1.current_address_id = T2.address_id GROUP BY T2.city",
+    "difficulty": "hard"
+  },
+  {
+    "id": 99,
+    "db_id": "student_transcripts_tracking",
+    "question": "Find students who registered in 2018.",
+    "gold_sql": "SELECT first_name, last_name FROM Students WHERE date_first_registered LIKE '2018%'",
+    "difficulty": "extra-hard"
+  },
+  {
+    "id": 100,
+    "db_id": "student_transcripts_tracking",
+    "question": "List students who are enrolled in more than one semester.",
+    "gold_sql": "SELECT T1.first_name, T1.last_name FROM Students AS T1 JOIN Student_Enrolment AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id HAVING count(DISTINCT T2.semester_id) > 1",
+    "difficulty": "extra-hard"
+  }
+]
